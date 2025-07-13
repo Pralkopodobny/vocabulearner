@@ -8,32 +8,11 @@ var registrations = new ServiceCollection()
     .AddSingleton<SettingsService>()
     .AddSingleton<VocabDb>();
 
-var vocabDb = registrations.BuildServiceProvider().GetRequiredService<VocabDb>();
-
-switch (vocabDb.CheckVersion())
-{
-    case VocabDb.DbValidation.Ok:
-        Spectre.Console.AnsiConsole.MarkupLine("[bold green]Ok[/]");
-        break;
-    case VocabDb.DbValidation.Missing:
-    {
-        Spectre.Console.AnsiConsole.MarkupLine("[bold yellow]Creating database[/]");
-        vocabDb.CreateDatabase();
-        Spectre.Console.AnsiConsole.MarkupLine("[bold green]Database successfully created[/]");
-        break;
-    }
-    case VocabDb.DbValidation.Corrupted:
-    case VocabDb.DbValidation.Invalid:
-        Spectre.Console.AnsiConsole.MarkupLineInterpolated($"[bold red]{vocabDb.CheckVersion().ToString()}[/]");
-        break;
-    default:
-        throw new ArgumentOutOfRangeException();
-}
-
 var app = new CommandApp(new DependencyRegistrar(registrations));
 app.Configure(config =>
 {
     config.AddCommand<AddCommand>("add");
+    config.AddCommand<InitCommand>("init");
 });
 
 return app.Run(args);
