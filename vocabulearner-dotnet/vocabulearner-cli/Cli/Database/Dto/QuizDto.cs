@@ -2,7 +2,7 @@
 
 public record QuizDto
 {
-    public required int Id { get; init; }
+    public int Id { get; init; } = -1;
     public required string Name { get; init; }
     public required string Description { get; init; }
 }

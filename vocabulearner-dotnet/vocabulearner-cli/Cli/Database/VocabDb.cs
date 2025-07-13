@@ -35,8 +35,8 @@ public class VocabDb(SettingsService settings)
         connection.Execute("""
                            CREATE TABLE DbVersions
                            (
-                               Major INT NOT NULL,
-                               Minor INT NOT NULL,
+                               Major INTEGER NOT NULL,
+                               Minor INTEGER NOT NULL,
                                PRIMARY KEY (Major, Minor)
                            )
                            """, transaction: transaction);
@@ -48,7 +48,7 @@ public class VocabDb(SettingsService settings)
         connection.Execute("""
                            CREATE TABLE Quizes
                            (
-                               Id INT PRIMARY KEY NOT NULL,
+                               Id INTEGER PRIMARY KEY AUTOINCREMENT,
                                Name TEXT NOT NULL,
                                Description TEXT NOT NULL
                            )
@@ -57,8 +57,8 @@ public class VocabDb(SettingsService settings)
         connection.Execute("""
                            CREATE TABLE Questions
                            (
-                           No INT NOT NULL,
-                           QuizId INT NOT NULL,
+                           No INTEGER NOT NULL,
+                           QuizId INTEGER NOT NULL,
                            Contents TEXT NOT NULL,
                            Answer TEXT NOT NULL,
                            PRIMARY KEY (No, QuizId)

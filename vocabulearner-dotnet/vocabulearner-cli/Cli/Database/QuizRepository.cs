@@ -6,9 +6,9 @@ namespace Vocabulearner.Cli.Database;
 
 public static class QuizRepository
 {
-    public static void Add(QuizDto quiz, SqliteConnection connection, SqliteTransaction? transaction = null)
+    public static int Add(QuizDto quiz, SqliteConnection connection, SqliteTransaction? transaction = null)
     {
-        connection.Execute("INSERT INTO Quizes(Name, Description) VALUES (@Name, @Description)", quiz, transaction);
+        return connection.QueryFirst<int>("INSERT INTO Quizes(Name, Description) VALUES (@Name, @Description) RETURNING Id", quiz, transaction);
     }
     
     public static void RemoveByName(string name, SqliteConnection connection, SqliteTransaction? transaction = null)
