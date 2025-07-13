@@ -35,7 +35,7 @@ public class AddCommand(VocabDb db) : Command<AddCommand.Settings>
         {
             connection.Open();
             var transaction = connection.BeginTransaction();
-            var id = QuizRepository.Add(new QuizDto {Description = quiz.Description, Name = quiz.Name}, connection, transaction);
+            var id = QuizRepository.Add(new QuizDto {Description = quiz.Description ?? "", Name = quiz.Name}, connection, transaction);
 
             var questions = quiz.Questions.Select((question, i) => new Question
             {
