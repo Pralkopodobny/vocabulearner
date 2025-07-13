@@ -49,7 +49,7 @@ public class VocabDb(SettingsService settings)
                            CREATE TABLE Quizes
                            (
                                Id INTEGER PRIMARY KEY AUTOINCREMENT,
-                               Name TEXT NOT NULL,
+                               Name TEXT NOT NULL UNIQUE,
                                Description TEXT NOT NULL
                            )
                            """, transaction: transaction);
