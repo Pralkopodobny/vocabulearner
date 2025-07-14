@@ -18,4 +18,12 @@ public static class QuestionRepository
             Add(question, connection, transaction);
         }
     }
+
+    public static List<Question> GetByQuizName(string name, SqliteConnection connection,
+        SqliteTransaction? transaction = null)
+    {
+        return connection.Query<Question>("SELECT Questions.* FROM Quizes JOIN Questions ON Quizes.Id = Questions.QuizId WHERE Quizes.Name = @name ORDER BY Questions.No", 
+            new { name }, 
+            transaction).ToList();
+    }
 }
